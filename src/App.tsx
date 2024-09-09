@@ -31,7 +31,12 @@ const App = () => {
 
   return (
     <div>
-      <button onClick={handleClick}>{one}</button>
+      <button
+        onClick={handleClick}
+        className="bg-pink text-orange border-gray-dark w-12 h-5"
+      >
+        {one}
+      </button>
     </div>
   );
 };
