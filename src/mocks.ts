@@ -34,14 +34,16 @@ export const setData = (id: number, status: State["status"]) => {
         "data",
       ]);
       console.log(existingData);
-      if (existingData) {
+      if (!existingData) {
+        return null;
+      }
+      {
         const updatedData = existingData.map((item) => {
           if (item.data.id === id) {
             return { ...item, status };
           }
           return item;
         });
-
         queryClient.setQueryData(["data"], updatedData);
         return updatedData;
       }

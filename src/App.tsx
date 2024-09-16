@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import "./App.css";
 import { useState } from "react";
 import { getData, setData } from "./mocks";
+import "./index.css";
 
 interface data {
   id: number;
@@ -33,7 +34,7 @@ const App = () => {
     <div>
       <button
         onClick={handleClick}
-        className="bg-pink text-orange border-gray-dark w-12 h-5"
+        className="bg-pink-500 text-black  w-20 h-8 rounded-xl shadow-xl hover:bg-slate-700"
       >
         {one}
       </button>
