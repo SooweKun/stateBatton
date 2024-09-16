@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  UseMutateFunction,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { State } from "./App";
 
 const jsonData: State = {
@@ -11,7 +16,7 @@ const jsonData: State = {
 };
 
 export const getData = () => {
-  return useQuery({
+  const { data, isLoading } = useQuery<State | undefined>({
     queryKey: ["data"],
     queryFn: () => {
       return new Promise((resolve, reject) => {
@@ -22,12 +27,18 @@ export const getData = () => {
       });
     },
   });
+  return { data, isLoading };
 };
-
+type mutateF =
+  | {
+      mutate: UseMutateFunction<State[] | null, Error, void, unknown>;
+      isSuccess: boolean;
+    }
+  | undefined;
 export const setData = (id: number, status: State["status"]) => {
   const queryClient = useQueryClient();
   if (!queryClient) return;
-  const { mutate } = useMutation({
+  return useMutation({
     mutationKey: ["data"],
     mutationFn: async () => {
       const existingData: undefined | State[] = queryClient.getQueryData([
@@ -49,7 +60,4 @@ export const setData = (id: number, status: State["status"]) => {
       }
     },
   });
-  return {
-    mutate,
-  };
 };

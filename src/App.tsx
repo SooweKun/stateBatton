@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import "./App.css";
 import { useState } from "react";
 import { getData, setData } from "./mocks";
@@ -17,17 +16,15 @@ export interface State {
 }
 
 const App = () => {
-  const [one, setOne] = useState("start");
+  const { data } = getData();
+  if (!data) return;
+  const [one, setOne] = useState<"start" | "click" | "loading" | "clicked">(
+    "start",
+  );
 
-  const { data, isLoading, isSuccess } = getData();
-  const { mutate: setDataC } = setData(1, "click");
+  const {} = setData(data.data.id, one);
   const handleClick = () => {
     setOne("click");
-    if (isLoading && one === "click") {
-      setTimeout(() => {
-        setOne("loading");
-      }, 2 * 1000);
-    }
   };
 
   return (
